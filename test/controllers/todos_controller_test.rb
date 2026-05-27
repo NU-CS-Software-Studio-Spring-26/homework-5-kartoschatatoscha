@@ -38,6 +38,25 @@ class TodosControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to todo_url(@todo)
   end
 
+  test "should toggle todo priority" do
+    assert_not @todo.high_priority?
+
+    patch toggle_priority_todo_url(@todo)
+    assert_redirected_to todo_url(@todo)
+    assert @todo.reload.high_priority?
+
+    patch toggle_priority_todo_url(@todo)
+    assert_redirected_to todo_url(@todo)
+    assert_not @todo.reload.high_priority?
+  end
+
+  test "should return turbo stream when toggling priority with turbo accept header" do
+    patch toggle_priority_todo_url(@todo), headers: { "Accept" => "text/vnd.turbo-stream.html" }
+    assert_response :success
+    assert_equal "text/vnd.turbo-stream.html", response.media_type
+    assert_includes response.body, %(turbo-stream action="replace")
+  end
+
   test "should destroy todo" do
     assert_difference("Todo.count", -1) do
       delete todo_url(@todo)
