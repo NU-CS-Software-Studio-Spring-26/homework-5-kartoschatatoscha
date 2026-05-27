@@ -1,0 +1,20 @@
+---
+description: Rails 8 conventions for the sample todo app
+alwaysApply: true
+---
+
+
+- Never write, log, or echo secrets, API keys, or production credentials
+- No eval on user input
+- No html_safe / raw on untrusted input
+- Use parameterized queries, never string-interpolate SQL
+- Do not disable CSRF, mass assignment protection, or Devise's session checks
+- Keep `.env*`, `config/master.key`, credential keys, logs, tmp files, storage files, and SQLite DB files out of commits and agent-visible context.
+- `config/credentials.yml.enc` may be committed, but never expose or commit the matching master key.
+- Keep sensitive params filtered in `config/initializers/filter_parameter_logging.rb`; add new secret-like param names there when introduced.
+- Prefer Rails helpers and ERB escaping; do not add `html_safe`, `raw`, or manual string-built HTML for user-provided content.
+- Use `params.expect(...)` / strong parameters for all writes; never pass raw `params` into models.
+- Prefer Active Record query APIs over raw SQL; if raw SQL is unavoidable, use bound parameters.
+- Keep CSRF protections and layout tags intact for browser forms.
+- Do not loosen CSP casually; if scripts/styles need changes, prefer importmap/pinned assets and nonce-aware Rails config over inline unsafe code.
+- Run `bin/brakeman --no-pager` and `bin/importmap audit` after security-sensitive changes or dependency changes.

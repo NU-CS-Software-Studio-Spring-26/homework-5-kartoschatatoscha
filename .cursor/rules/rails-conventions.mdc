@@ -1,0 +1,18 @@
+---
+description: Rails 8 conventions for the sample todo app
+alwaysApply: true
+---
+
+# Rails Conventions
+
+- Prefer Rails/Hotwire patterns over custom JavaScript. Use ERB, Rails helpers, importmap, Turbo, and Stimulus before adding new JS tooling or frameworks.
+- Do not add Turbo Stream responses halfway. If a feature needs Turbo Streams, add `format.turbo_stream` handling and matching `.turbo_stream.erb` views together.
+- Keep controllers RESTful and resource-oriented. For Todo behavior, extend `resources :todos` and `TodosController` instead of creating unrelated routes/controllers.
+- Preserve the existing HTML + JSON response pattern: redirects/notices for successful HTML writes, form renders with `:unprocessable_content` for invalid HTML writes, and Jbuilder-backed JSON responses.
+- Always use strong parameters through private parameter methods such as `todo_params`; do not pass raw `params` into models.
+- Use `bin/rails generate` for Rails boilerplate such as models, controllers, migrations, and tests, then edit the generated files.
+- Keep migrations reversible by using `change` for simple schema changes and explicit `up`/`down` only when needed.
+- Do not hand-edit `db/schema.rb`; change schema through migrations.
+- Keep the schema scoped to this todo app. Do not import models, tables, or migrations from other projects unless explicitly requested.
+- Keep Todo-specific partials and Jbuilder views under `app/views/todos/`; introduce `app/views/shared/` only for partials reused across resources.
+- Add or update Minitest coverage when generated code changes user-visible behavior.
