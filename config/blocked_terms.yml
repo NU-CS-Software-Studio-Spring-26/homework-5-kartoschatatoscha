@@ -1,0 +1,13 @@
+default: &default
+  # Terms are matched as case-insensitive substrings.
+  terms:
+    - "example_slur"
+
+development:
+  <<: *default
+
+test:
+  <<: *default
+
+production:
+  <<: *default
