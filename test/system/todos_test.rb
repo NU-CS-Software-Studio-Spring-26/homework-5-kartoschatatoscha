@@ -32,6 +32,16 @@ class TodosTest < ApplicationSystemTestCase
     click_on "Back"
   end
 
+  test "should toggle todo priority" do
+    visit todo_url(@todo)
+
+    assert_text "Normal priority"
+    click_on "Mark high priority"
+
+    assert_text "High priority"
+    assert_button "Mark normal priority"
+  end
+
   test "should destroy Todo" do
     visit todo_url(@todo)
     click_on "Destroy this todo", match: :first

@@ -63,6 +63,7 @@ class TodosController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to @todo, notice: "Todo priority was successfully updated.", status: :see_other }
+      format.turbo_stream
       format.json { render :show, status: :ok, location: @todo }
     end
   end
